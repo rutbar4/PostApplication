@@ -27,10 +27,15 @@ Kaban board have 6 tables:
 * Closed
 
 **Open** table is like a To-Do list where all of your tasks are kept.
+
 **Doing** table is used to show which tasks are you doing now. All on going tasks must be moved from **Open** table.
+
 **Test** table is used to keep tasks which must be tested by testing engineer, but are not tested yet.
+
 **Testing** table is used to keep tasks which are on going on in testing. If the testing was succesfull, the task must be moved to **Ready to merge** table, if not, return to the **Doing** table to fix the bugs. Also the Testing engineer must to add a labal **Test failed** for the developer to understand that he must fix found bugs.
+
 **Ready to merge** table is used to keep tasks which are waiting to be merged with the **main** branch, because all bug fixes and new features must be developed in the **development** branch.
+
 **Closed** table is used to keep all done tasks which passed the testing phase and were succesfully merged into **main** branch.
 
 ## Other things
