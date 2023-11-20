@@ -1,6 +1,7 @@
 <template>
-	<div id="author">
-		<h1>Full list of authors</h1>
+	<div id="home">
+		<h1>Welcome!</h1>
+		<router-view></router-view>
 	</div>
 </template>
 
