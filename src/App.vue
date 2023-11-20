@@ -1,15 +1,20 @@
 <template>
 	<div id="app">
-		<app-header></app-header>
-		<router-view></router-view>
+		<app-header />
+		<router-view />
+		<notification-list />
 	</div>
 </template>
 
 <script>
 	import header from './components/Header/header.vue';
+	import NotificationList from './components/Notification/NotificationList.vue';
+
 	export default {
+		name: 'app',
 		components: {
 			'app-header': header,
+			NotificationList,
 		},
 	};
 </script>
@@ -21,6 +26,6 @@
 		-moz-osx-font-smoothing: grayscale;
 		text-align: center;
 		color: #2c3e50;
-		margin-top: 60px;
+		margin-top: 40px;
 	}
 </style>
