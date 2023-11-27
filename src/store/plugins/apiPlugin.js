@@ -38,6 +38,16 @@ const APIPlugin = (store) => {
 			throw new Error('There was a problem posting an author');
 		}
 	};
+
+	store.DeleteData = async function (url, id) {
+		try {
+			console.log(`/${url}/${id}`);
+			const response = await this.http.delete(`/${url}/${id}`);
+			return response.data;
+		} catch (error) {
+			throw new Error('There was a problem deleting an author');
+		}
+	};
 };
 
 export default APIPlugin;
