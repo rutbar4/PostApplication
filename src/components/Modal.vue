@@ -30,11 +30,6 @@
 
 	export default {
 		name: 'Modal',
-		data() {
-			return {
-				content: null,
-			};
-		},
 		computed: {
 			...mapGetters(['getComponent', 'getIsOpen']),
 		},
@@ -58,7 +53,5 @@
 	import DeletePost from './Forms/DeletePost.vue';
 	import EditAuthor from './Forms/EditAuthor.vue';
 	import EditPost from './Forms/EditPost.vue';
-	import LoadingView from './LoadingView.vue';
-	import LoadingError from './LoadingError.vue';
 </script>
 <style></style>

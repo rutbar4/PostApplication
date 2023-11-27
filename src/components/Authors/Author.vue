@@ -1,7 +1,5 @@
 <template>
-	<div
-		id="author"
-	>
+	<div id="author">
 		<div style="height: 100px; align-items: center; align-content: center">
 			<div
 				class="card"

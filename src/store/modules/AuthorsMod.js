@@ -18,10 +18,33 @@ const actions = {
 			});
 		}
 	},
+	async post_author({ commit }, name) {
+		try {
+			if (name === null || name === '') {
+				commit('pushNotification', {
+					type: 'error',
+					msg: 'Name was not imputed',
+				});
+				throw error;
+			} else {
+				const authors = await this.postData('authors', name);
+				commit('pushNotification', {
+					type: 'success',
+					msg: 'Author posted successfully',
+				});
+			}
+		} catch {
+			commit('pushNotification', {
+				type: 'error',
+				msg: 'Failed to post author',
+			});
+		}
+	},
 };
 
 const getters = {
 	getAuthors: (state) => state.authors,
+	getName: (state) => state.authors,
 };
 
 const mutations = {
