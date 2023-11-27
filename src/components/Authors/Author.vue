@@ -1,13 +1,42 @@
 <template>
 	<div id="author">
-		<div style="height: 100px; align-items: center; align-content: center">
+		<div style="height: 150px; align-items: center; align-content: center">
 			<div
 				class="card"
 				style="align-items: center; align-content: center"
 			>
 				<div class="media-content">
-					<p class="title is-4">{{ author.name }}</p>
-					<time datetime="2016-1-1">{{ author.created_at }}</time>
+					<div
+						class="card-header"
+						style="
+							align-items: center;
+							align-content: center;
+							padding-right: 5px;
+							margin-bottom: 10px;
+						"
+					>
+						<p class="card-header-title is-2">
+							{{ author.name }}
+						</p>
+						<button
+							v-on:click="
+								SET_SELECTED_NAME_AND_ID({ name: author.name, id: author.id });
+								openModal('EditAuthor');
+							"
+							class="button"
+						>
+							Edit
+						</button>
+					</div>
+					<div class="content">
+						<div
+							class="subtitle is-6"
+							style="margin-bottom: 5px"
+						>
+							{{ author.id }}
+						</div>
+						<time datetime="2016-1-1">{{ author.created_at }}</time>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -15,6 +44,7 @@
 </template>
 
 <script>
+	import { mapMutations } from 'vuex';
 	export default {
 		name: 'Author',
 		props: {
@@ -22,6 +52,9 @@
 				type: Object,
 				required: true,
 			},
+		},
+		methods: {
+			...mapMutations(['openModal', 'SET_SELECTED_NAME_AND_ID']),
 		},
 	};
 </script>

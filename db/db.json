@@ -29,6 +29,12 @@
       "name": "Max",
       "created_at": "2023-05-31",
       "updated_at": "2023-05-31"
+    },
+    {
+      "id": 6,
+      "name": "Lillo",
+      "created_at": "11/27/2023",
+      "updated_at": "11/27/2023"
     }
   ],
   "posts": [
