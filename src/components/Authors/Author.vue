@@ -18,15 +18,34 @@
 						<p class="card-header-title is-2">
 							{{ author.name }}
 						</p>
-						<button
-							v-on:click="
-								SET_SELECTED_NAME_AND_ID({ name: author.name, id: author.id });
-								openModal('EditAuthor');
-							"
-							class="button"
-						>
-							Edit
-						</button>
+						<div>
+							<button
+								class="button is-success is-outlined is-small is-rounded"
+								style="margin-right: 3px"
+								v-on:click="
+									SET_SELECTED_NAME_AND_ID({
+										name: author.name,
+										id: author.id,
+									});
+									openModal('EditAuthor');
+								"
+							>
+								Edit
+							</button>
+							<button
+								class="button is-danger is-outlined is-small is-rounded"
+								style="margin-right: 3px"
+								v-on:click="
+									SET_SELECTED_NAME_AND_ID({
+										name: author.name,
+										id: author.id,
+									});
+									openModal('DeleteAuthor');
+								"
+							>
+								Delete
+							</button>
+						</div>
 					</div>
 					<div class="content">
 						<div

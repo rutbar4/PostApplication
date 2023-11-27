@@ -75,6 +75,23 @@ const actions = {
 			});
 		}
 	},
+
+	async delete_author({ commit }) {
+		try {
+			const author = await this.DeleteData('authors', state.selectedAuthorId);
+			const authors = await this.getData('authors');
+			commit('SET_AUTHORS', authors);
+			commit('pushNotification', {
+				type: 'success',
+				msg: 'Author deleted successfully',
+			});
+		} catch {
+			commit('pushNotification', {
+				type: 'error',
+				msg: 'Failed to deleted author',
+			});
+		}
+	},
 };
 
 const getters = {

@@ -4,7 +4,6 @@
 		<button v-on:click="openModal('CreateAuthor')">
 			Open modal Create author
 		</button>
-		<button v-on:click="openModal('DeletePost')">Open modal Delete post</button>
 		<AuthorsList />
 	</div>
 </template>
