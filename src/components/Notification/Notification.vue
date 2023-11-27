@@ -15,9 +15,6 @@
 <script>
 	import { mapMutations, mapGetters } from 'vuex';
 	export default {
-		computed: {
-			...mapGetters(['notificationData']),
-		},
 		props: {
 			notification: {
 				type: Object,

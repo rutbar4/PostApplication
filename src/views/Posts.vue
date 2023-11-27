@@ -1,48 +1,51 @@
 <template>
 	<div id="posts">
 		<div>
-			<h1>Full list of articles</h1>
-			<button
-				v-on:click="
-					pushNotification({
-						type: 'success',
-						msg: 'Something successfully done. Something successfully done. ',
-					})
-				"
+			<div
+				class="block"
+				v-for="post in getPosts"
+				:key="post.id"
 			>
-				Show Short Success Notification
-			</button>
-			<button
-				v-on:click="
-					pushNotification({
-						type: 'success',
-						msg: 'Something successfully done. Something successfully done. Something successfully done. Something successfully done. Something successfully done. Something successfully done. Something successfully done. Something successfully done. Something successfully done. Something successfully done. Something successfully done. Something successfully done. Something successfully done. Something successfully done. Something successfully done. ',
-					})
-				"
-			>
-				Show Long Success Notification</button
-			><button
-				v-on:click="
-					pushNotification({ type: 'error', msg: 'Something failed' })
-				"
-			>
-				Show Error Notification
-			</button>
+				<div class="card">
+					<header class="card-header">
+						<p class="card-header-title">{{ post.title }}</p>
+					</header>
+					<div class="card-content">
+						<div class="content">
+							{{ post.body }}
+							<br />
+							<time datetime="2016-1-1">{{ post.created_at }}</time>
+						</div>
+					</div>
+					<footer class="card-footer">
+						<a
+							href="#"
+							class="card-footer-item"
+							>Edit</a
+						>
+						<a
+							href="#"
+							class="card-footer-item"
+							>Delete</a
+						>
+					</footer>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-	import { mapMutations } from 'vuex';
+	import { mapMutations, mapActions, mapGetters } from 'vuex';
 	export default {
 		computed: {
-			count() {
-				return this.$store.state.count;
-			},
+			...mapGetters(['getPosts']),
 		},
 		methods: {
-			...mapMutations(['pushNotification']),
+			...mapActions(['fetch_posts']),
+		},
+		created() {
+			this.fetch_posts();
 		},
 	};
-</script>
-<style></style>
+</script> 

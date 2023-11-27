@@ -8,7 +8,7 @@
 				position: absolute;
 				overflow: auto;
 				height: 80%;
-				top: 150px;
+				top: 110px;
 				right: 5%;
 				overflow-anchor: auto;
 			"

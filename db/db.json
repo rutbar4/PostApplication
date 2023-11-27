@@ -1,0 +1,116 @@
+{
+  "authors": [
+    {
+      "id": 1,
+      "name": "Oliver",
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    },
+    {
+      "id": 2,
+      "name": "Evelyn",
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    },
+    {
+      "id": 3,
+      "name": "Leo",
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    },
+    {
+      "id": 4,
+      "name": "Luna",
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    },
+    {
+      "id": 5,
+      "name": "Max",
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Lorem Ipsum",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "authorId": 3,
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    },
+    {
+      "id": 2,
+      "title": "Vivamus Euismod",
+      "body": "Vivamus euismod tempus massa, non cursus velit maximus sed.",
+      "authorId": 5,
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    },
+    {
+      "id": 3,
+      "title": "Praesent Tristique",
+      "body": "Praesent tristique orci non lorem efficitur, ut fermentum turpis rutrum.",
+      "authorId": 1,
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    },
+    {
+      "id": 4,
+      "title": "Nullam Dapibus",
+      "body": "Nullam dapibus orci eu lacus cursus, vel varius velit facilisis.",
+      "authorId": 4,
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    },
+    {
+      "id": 5,
+      "title": "Aenean Condimentum",
+      "body": "Aenean condimentum tincidunt mauris id ultrices.",
+      "authorId": 2,
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    },
+    {
+      "id": 6,
+      "title": "Morbi Feugiat",
+      "body": "Morbi feugiat metus at lorem posuere rhoncus.",
+      "authorId": 3,
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    },
+    {
+      "id": 7,
+      "title": "Fusce Rutrum",
+      "body": "Fusce rutrum neque eget leo tempus, sed bibendum arcu lobortis.",
+      "authorId": 5,
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    },
+    {
+      "id": 8,
+      "title": "Sed Consequat",
+      "body": "Sed consequat nunc ut purus scelerisque cursus.",
+      "authorId": 1,
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    },
+    {
+      "id": 9,
+      "title": "Etiam Ultricies",
+      "body": "Etiam ultricies risus at nunc congue scelerisque.",
+      "authorId": 4,
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    },
+    {
+      "id": 10,
+      "title": "Vestibulum Tincidunt",
+      "body": "Vestibulum tincidunt ex vitae ex ultrices, ac eleifend lectus bibendum.",
+      "authorId": 2,
+      "created_at": "2023-05-31",
+      "updated_at": "2023-05-31"
+    }
+  ]
+}
