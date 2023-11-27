@@ -14,11 +14,23 @@ const APIPlugin = (store) => {
 
 	store.postData = async function (url, name) {
 		try {
-			console.log("postData");
 			const response = await this.http.post(`/${url}`, {
 				id: Math.random * 10,
 				name: name,
 				created_at: new Date().toLocaleDateString(),
+				updated_at: new Date().toLocaleDateString(),
+			});
+			return response.data;
+		} catch (error) {
+			throw new Error('There was a problem posting an author');
+		}
+	};
+
+	store.putData = async function (url, name, id) {
+		try {
+			console.log(`/${url}/${id}`);
+			const response = await this.http.patch(`/${url}/${id}`, {
+				name: name,
 				updated_at: new Date().toLocaleDateString(),
 			});
 			return response.data;

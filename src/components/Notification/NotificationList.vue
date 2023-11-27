@@ -7,7 +7,7 @@
 			style="
 				position: absolute;
 				overflow: auto;
-				height: 80%;
+				max-height: 80%;
 				top: 110px;
 				right: 5%;
 				overflow-anchor: auto;
