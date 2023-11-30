@@ -1,27 +1,30 @@
 <template>
 	<div id="author">
-		<div style="height: 150px; align-items: center; align-content: center">
+		<div style="max-height: 150px; align-items: center; align-content: center">
 			<div
-				class="card"
+				class="card mb-4"
 				style="align-items: center; align-content: center"
 			>
 				<div class="media-content">
 					<div
-						class="card-header"
-						style="
-							align-items: center;
-							align-content: center;
-							padding-right: 5px;
-							margin-bottom: 10px;
-						"
+						class="card-header mb-3"
+						style="align-items: center"
 					>
-						<p class="card-header-title is-2">
+						<div
+							class="card-header-title is-2"
+							style="
+								max-height: 80px;
+								max-width: 80%;
+								overflow: auto;
+								flex-wrap: wrap;
+								hyphens: auto;
+							"
+						>
 							{{ author.name }}
-						</p>
-						<div>
+						</div>
+						<div style="min-width: fit-content">
 							<button
-								class="button is-success is-outlined is-small is-rounded"
-								style="margin-right: 3px"
+								class="button is-success is-outlined is-small is-rounded mr-1"
 								v-on:click="
 									SET_SELECTED_NAME_AND_ID({
 										name: author.name,
@@ -33,8 +36,7 @@
 								Edit
 							</button>
 							<button
-								class="button is-danger is-outlined is-small is-rounded"
-								style="margin-right: 3px"
+								class="button is-danger is-outlined is-small is-rounded mr-3"
 								v-on:click="
 									SET_SELECTED_NAME_AND_ID({
 										name: author.name,
@@ -48,13 +50,11 @@
 						</div>
 					</div>
 					<div class="content">
-						<div
+						<time
+							datetime="2016-1-1"
 							class="subtitle is-6"
-							style="margin-bottom: 5px"
+							>Date created: {{ author.created_at }}</time
 						>
-							{{ author.id }}
-						</div>
-						<time datetime="2016-1-1">{{ author.created_at }}</time>
 					</div>
 				</div>
 			</div>

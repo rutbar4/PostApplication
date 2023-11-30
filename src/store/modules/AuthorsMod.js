@@ -21,23 +21,14 @@ const actions = {
 		}
 	},
 
-	async post_author({ commit }, name) {
+	async post_author({ dispatch, commit }, name) {
 		try {
-			if (name === null || name === '') {
-				commit('pushNotification', {
-					type: 'error',
-					msg: 'Name was not imputed',
-				});
-				throw error;
-			} else {
-				const author = await this.postData('authors', name);
-				const authors = await this.getData('authors');
-				commit('SET_AUTHORS', authors);
-				commit('pushNotification', {
-					type: 'success',
-					msg: 'Author posted successfully',
-				});
-			}
+			const author = await this.postData('authors', name);
+			await dispatch('fetch_authors');
+			commit('pushNotification', {
+				type: 'success',
+				msg: 'Author posted successfully',
+			});
 		} catch {
 			commit('pushNotification', {
 				type: 'error',
@@ -46,28 +37,18 @@ const actions = {
 		}
 	},
 
-	async edit_author({ commit }, newName) {
+	async edit_author({ dispatch, commit }, newName) {
 		try {
-			if (newName === null || newName === '') {
-				//nothing was edited
-				commit('pushNotification', {
-					type: 'error',
-					msg: 'Name was not imputed',
-				});
-				throw error;
-			} else {
-				const author = await this.putData(
-					'authors',
-					newName,
-					state.selectedAuthorId,
-				);
-				const authors = await this.getData('authors');
-				commit('SET_AUTHORS', authors);
-				commit('pushNotification', {
-					type: 'success',
-					msg: 'Author updated successfully',
-				});
-			}
+			const author = await this.putData(
+				'authors',
+				newName,
+				state.selectedAuthorId,
+			);
+			await dispatch('fetch_authors');
+			commit('pushNotification', {
+				type: 'success',
+				msg: 'Author updated successfully',
+			});
 		} catch {
 			commit('pushNotification', {
 				type: 'error',
@@ -76,11 +57,10 @@ const actions = {
 		}
 	},
 
-	async delete_author({ commit }) {
+	async delete_author({ dispatch, commit }) {
 		try {
 			const author = await this.DeleteData('authors', state.selectedAuthorId);
-			const authors = await this.getData('authors');
-			commit('SET_AUTHORS', authors);
+			await dispatch('fetch_authors');
 			commit('pushNotification', {
 				type: 'success',
 				msg: 'Author deleted successfully',
@@ -105,13 +85,8 @@ const mutations = {
 		state.authors = authors;
 	},
 	SET_SELECTED_NAME_AND_ID(state, { name, id }) {
-		console.log('selected: ' + name + ' ' + id);
 		state.selectedAuthorName = name;
 		state.selectedAuthorId = id;
-	},
-	SET_NAME(state, name) {
-		state.selectedAuthorName = name;
-		return state.selectedAuthorName;
 	},
 };
 

@@ -15,10 +15,19 @@ const APIPlugin = (store) => {
 	store.postData = async function (url, name) {
 		try {
 			const response = await this.http.post(`/${url}`, {
-				id: Math.random * 10,
-				name: name,
-				created_at: new Date().toLocaleDateString(),
-				updated_at: new Date().toLocaleDateString(),
+				name: name
+					.toLowerCase()
+					.split(' ')
+					.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+					.join(' '),
+				created_at: new Date()
+					.toLocaleDateString('ko-KR')
+					.replaceAll('. ', '-')
+					.slice(0, 10),
+				updated_at: new Date()
+					.toLocaleDateString('ko-KR')
+					.replaceAll('. ', '-')
+					.slice(0, 10),
 			});
 			return response.data;
 		} catch (error) {
@@ -28,10 +37,16 @@ const APIPlugin = (store) => {
 
 	store.putData = async function (url, name, id) {
 		try {
-			console.log(`/${url}/${id}`);
 			const response = await this.http.patch(`/${url}/${id}`, {
-				name: name,
-				updated_at: new Date().toLocaleDateString(),
+				name: name
+					.toLowerCase()
+					.split(' ')
+					.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+					.join(' '),
+				updated_at: new Date()
+					.toLocaleDateString('ko-KR')
+					.replaceAll('. ', '-')
+					.slice(0, 10),
 			});
 			return response.data;
 		} catch (error) {
@@ -41,7 +56,6 @@ const APIPlugin = (store) => {
 
 	store.DeleteData = async function (url, id) {
 		try {
-			console.log(`/${url}/${id}`);
 			const response = await this.http.delete(`/${url}/${id}`);
 			return response.data;
 		} catch (error) {

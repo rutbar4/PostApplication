@@ -3,22 +3,24 @@
 		id="notification-list"
 		is-overlay
 	>
-		<span
-			style="
-				position: absolute;
-				overflow: auto;
-				max-height: 80%;
-				top: 110px;
-				right: 5%;
-				overflow-anchor: auto;
-			"
-			><Notification
-				v-for="(notification, index) in getNotifications"
-				:key="index"
-				:notification="notification"
-				is-overlay
-			></Notification
-		></span>
+		<div>
+			<span
+				style="
+					position: fixed;
+					overflow: auto;
+					max-height: 80%;
+					top: 110px;
+					right: 5%;
+					overflow-anchor: auto;
+				"
+				><Notification
+					v-for="(notification, index) in getNotifications"
+					:key="index"
+					:notification="notification"
+					is-overlay
+				></Notification
+			></span>
+		</div>
 	</div>
 </template>
 
