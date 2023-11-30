@@ -3,7 +3,7 @@
 		<app-header />
 		<div class="columns">
 			<div class="column"><modal /></div>
-			<div class="column"><router-view /></div>
+			<div class="column is-two-thirds"><router-view /></div>
 			<div class="column"><notification-list /></div>
 		</div>
 	</div>

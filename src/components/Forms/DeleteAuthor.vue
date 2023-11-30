@@ -10,7 +10,7 @@
 			<div style="padding-top: 10px">
 				<button
 					v-on:click="
-						delete_author(name);
+						delete_author();
 						closeModal();
 					"
 					style="margin-right: 3px"
@@ -30,18 +30,12 @@
 <script>
 	import { mapActions, mapMutations, mapGetters } from 'vuex';
 	export default {
-		name: 'EditAuthor',
-		data() {
-			return {
-				name: '',
-			};
-		},
+		name: 'DeleteAuthor',
 		created() {
 			this.name = this.getSelectedName();
 		},
 		methods: {
 			...mapActions(['delete_author']),
-			...mapMutations(['SET_NAME']),
 			...mapGetters(['getSelectedName', 'getSelectedId']),
 			...mapMutations(['closeModal']),
 		},

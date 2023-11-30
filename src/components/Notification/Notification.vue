@@ -13,7 +13,7 @@
 </template>
 
 <script>
-	import { mapMutations, mapGetters } from 'vuex';
+	import { mapMutations } from 'vuex';
 	export default {
 		props: {
 			notification: {
