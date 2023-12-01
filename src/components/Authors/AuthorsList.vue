@@ -18,7 +18,7 @@
 </template>
 
 <script>
-	import { mapMutations, mapGetters, mapActions } from 'vuex';
+	import { mapGetters, mapActions } from 'vuex';
 	import Author from './Author.vue';
 	export default {
 		name: 'AuthorsList',
@@ -28,7 +28,6 @@
 		},
 		methods: {
 			...mapActions(['fetch_authors']),
-			...mapMutations(['pushNotification']),
 		},
 		created() {
 			this.fetch_authors();
