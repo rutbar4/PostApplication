@@ -55,7 +55,7 @@
 		},
 		methods: {
 			...mapActions(['edit_author']),
-			...mapMutations(['closeModal']),
+			...mapMutations(['closeModal', 'pushNotification']),
 			...mapGetters(['getSelectedName', 'getSelectedId']),
 			validateBeforeSubmit() {
 				this.$validator.validateAll().then((result) => {
@@ -64,8 +64,10 @@
 						this.closeModal();
 						return;
 					}
-
-					alert('Please correct all errors before submitting');
+					this.pushNotification({
+						type: 'error',
+						msg: 'Please correct all errors before submitting!',
+					});
 				});
 			},
 		},

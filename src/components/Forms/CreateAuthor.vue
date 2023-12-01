@@ -51,7 +51,7 @@
 		},
 		methods: {
 			...mapActions(['post_author']),
-			...mapMutations(['closeModal']),
+			...mapMutations(['closeModal', 'pushNotification']),
 			validateBeforeSubmit() {
 				this.$validator.validateAll().then((result) => {
 					if (result) {
@@ -59,8 +59,10 @@
 						this.closeModal();
 						return;
 					}
-
-					alert('Please correct all errors before submitting!');
+					this.pushNotification({
+						type: 'error',
+						msg: 'Please correct all errors before submitting!',
+					});
 				});
 			},
 		},

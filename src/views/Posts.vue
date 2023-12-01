@@ -1,51 +1,28 @@
 <template>
-	<div id="posts">
-		<div>
-			<div
-				class="block"
-				v-for="post in getPosts"
-				:key="post.id"
-			>
-				<div class="card">
-					<header class="card-header">
-						<p class="card-header-title">{{ post.title }}</p>
-					</header>
-					<div class="card-content">
-						<div class="content">
-							{{ post.body }}
-							<br />
-							<time datetime="2016-1-1">{{ post.created_at }}</time>
-						</div>
-					</div>
-					<footer class="card-footer">
-						<a
-							href="#"
-							class="card-footer-item"
-							>Edit</a
-						>
-						<a
-							href="#"
-							class="card-footer-item"
-							>Delete</a
-						>
-					</footer>
-				</div>
-			</div>
-		</div>
+	<div id="posts-view">
+		<h1>Full list of authors</h1>
+		<button
+			class="button is-primary is-rounded"
+			style="margin-bottom: 15px; margin-top: 10px"
+			v-on:click="openModal('CreatePost')"
+		>
+			Create post
+		</button>
+		<PostsList />
+		<div></div>
 	</div>
 </template>
 
 <script>
-	import { mapActions, mapGetters } from 'vuex';
+	import { mapMutations } from 'vuex';
+	import PostsList from '../components/Posts/PostsList.vue';
 	export default {
-		computed: {
-			...mapGetters(['getPosts']),
+		name: 'PostsView',
+		components: {
+			PostsList,
 		},
 		methods: {
-			...mapActions(['fetch_posts']),
-		},
-		created() {
-			this.fetch_posts();
+			...mapMutations(['openModal']),
 		},
 	};
-</script> 
+</script>
