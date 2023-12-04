@@ -8,7 +8,7 @@ const APIPlugin = (store) => {
 			const response = await this.http.get(`/${url}`);
 			return response.data;
 		} catch (error) {
-			throw new Error('There was a problem fetching posts from the server');
+			throw new Error(`There was a problem fetching ${url} from the server`);
 		}
 	};
 
@@ -31,7 +31,7 @@ const APIPlugin = (store) => {
 			});
 			return response.data;
 		} catch (error) {
-			throw new Error('There was a problem posting an author');
+			throw new Error(`There was a problem posting to ${url}`);
 		}
 	};
 
@@ -50,7 +50,7 @@ const APIPlugin = (store) => {
 			});
 			return response.data;
 		} catch (error) {
-			throw new Error('There was a problem posting an author');
+			throw new Error(`There was a problem while updating in ${url}`);
 		}
 	};
 
@@ -59,7 +59,18 @@ const APIPlugin = (store) => {
 			const response = await this.http.delete(`/${url}/${id}`);
 			return response.data;
 		} catch (error) {
-			throw new Error('There was a problem deleting an author');
+			throw new Error(
+				`There was a problem deleting an item id: ${id} from ${url}`,
+			);
+		}
+	};
+
+	store.getById = async function (url, id) {
+		try {
+			const response = await this.http.get(`/${url}/${id}?_expand=author`);
+			return response.data;
+		} catch (error) {
+			throw new Error(`There was a problem getting item ${id} from ${url}`);
 		}
 	};
 };

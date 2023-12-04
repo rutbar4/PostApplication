@@ -1,10 +1,12 @@
 <template>
 	<div id="posts-list">
+		<p class="subtitle is-6">Click on post's title to see more information</p>
 		<Post
-			style="align-items: center"
+			style="align-items: center; margin-bottom: 15px"
 			v-for="post in getPosts"
 			:key="post.id"
 			:post="post"
+			:isSinglePostRoute="false"
 		></Post>
 	</div>
 </template>
