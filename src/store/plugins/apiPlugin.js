@@ -35,6 +35,27 @@ const APIPlugin = (store) => {
 		}
 	};
 
+	store.postPost = async function (url, { title, body, selectedAuthorId }) {
+		try {
+			const response = await this.http.post(`/${url}`, {
+				title: title,
+				body: body,
+				authorId: selectedAuthorId,
+				created_at: new Date()
+					.toLocaleDateString('ko-KR')
+					.replaceAll('. ', '-')
+					.slice(0, 10),
+				updated_at: new Date()
+					.toLocaleDateString('ko-KR')
+					.replaceAll('. ', '-')
+					.slice(0, 10),
+			});
+			return response.data;
+		} catch (error) {
+			throw new Error(`There was a problem posting to ${url}`);
+		}
+	};
+
 	store.putData = async function (url, name, id) {
 		try {
 			const response = await this.http.patch(`/${url}/${id}`, {
@@ -54,7 +75,7 @@ const APIPlugin = (store) => {
 		}
 	};
 
-	store.DeleteData = async function (url, id) {
+	store.deleteData = async function (url, id) {
 		try {
 			const response = await this.http.delete(`/${url}/${id}`);
 			return response.data;

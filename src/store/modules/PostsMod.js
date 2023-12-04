@@ -5,6 +5,26 @@ const state = {
 };
 
 const actions = {
+	async post_post({ dispatch, commit }, { title, body, selectedAuthorId }) {
+		try {
+			const post = await this.postPost('posts', {
+				title,
+				body,
+				selectedAuthorId,
+			});
+			await dispatch('fetch_posts');
+			commit('pushNotification', {
+				type: 'success',
+				msg: 'Post posted successfully',
+			});
+		} catch {
+			commit('pushNotification', {
+				type: 'error',
+				msg: 'Failed to post a post',
+			});
+		}
+	},
+
 	async fetch_posts({ commit }) {
 		try {
 			const posts = await this.getData('posts');
