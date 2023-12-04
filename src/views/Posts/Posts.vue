@@ -1,5 +1,6 @@
 <template>
 	<div id="posts-view">
+		<router-view></router-view>
 		<h1>Full list of authors</h1>
 		<button
 			class="button is-primary is-rounded"
@@ -15,7 +16,7 @@
 
 <script>
 	import { mapMutations } from 'vuex';
-	import PostsList from '../components/Posts/PostsList.vue';
+	import PostsList from '../../components/Posts/PostsList.vue';
 	export default {
 		name: 'PostsView',
 		components: {
