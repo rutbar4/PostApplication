@@ -13,7 +13,7 @@
 </template>
 
 <script>
-	import { mapMutations, mapGetters } from 'vuex';
+	import { mapMutations } from 'vuex';
 	import AuthorsList from '../components/Authors/AuthorsList.vue';
 	export default {
 		name: 'AuthorsView',
