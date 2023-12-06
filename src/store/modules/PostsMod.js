@@ -2,6 +2,10 @@ const state = {
 	posts: [],
 	post: {},
 	authorName: '',
+	selectedPostTitle: '',
+	selectedPostBody: '',
+	selectedPostId: '',
+	selectedAuthorId: '',
 };
 
 const actions = {
@@ -15,7 +19,7 @@ const actions = {
 			await dispatch('fetch_posts');
 			commit('pushNotification', {
 				type: 'success',
-				msg: 'Post posted successfully',
+				msg: `Post title: ${title} posted successfully`,
 			});
 		} catch {
 			commit('pushNotification', {
@@ -25,6 +29,29 @@ const actions = {
 		}
 	},
 
+	async edit_post({ dispatch, commit }, { title, body, selectedAuthorId }) {
+		try {
+			const post = await this.putPost(
+				'posts',
+				{
+					title,
+					body,
+					selectedAuthorId,
+				},
+				state.selectedPostId,
+			);
+			await dispatch('fetch_posts');
+			commit('pushNotification', {
+				type: 'success',
+				msg: `Post updated successfully. Post title: ${title}`,
+			});
+		} catch {
+			commit('pushNotification', {
+				type: 'error',
+				msg: `Failed to update a post. Post title: ${title}`,
+			});
+		}
+	},
 	async fetch_posts({ commit }) {
 		try {
 			const posts = await this.getData('posts');
@@ -61,6 +88,9 @@ const actions = {
 const getters = {
 	getPosts: (state) => state.posts,
 	getPost: (state) => state.post,
+	getSelectedPostTitle: (state) => state.selectedPostTitle,
+	getSelectedPostBody: (state) => state.selectedPostBody,
+	getSelectedPostId: (state) => state.selectedPostId,
 };
 
 const mutations = {
@@ -70,6 +100,11 @@ const mutations = {
 
 	SET_POST(state, post) {
 		state.post = post;
+	},
+	SET_SELECTED_POST(state, { title, body, id }) {
+		state.selectedPostTitle = title;
+		state.selectedPostBody = body;
+		state.selectedPostId = id;
 	},
 };
 

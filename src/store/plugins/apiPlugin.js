@@ -23,11 +23,11 @@ const APIPlugin = (store) => {
 				created_at: new Date()
 					.toLocaleDateString('ko-KR')
 					.replaceAll('. ', '-')
-					.slice(0, 10),
+					.replaceAll('.', ''),
 				updated_at: new Date()
 					.toLocaleDateString('ko-KR')
 					.replaceAll('. ', '-')
-					.slice(0, 10),
+					.replaceAll('.', ''),
 			});
 			return response.data;
 		} catch (error) {
@@ -38,17 +38,42 @@ const APIPlugin = (store) => {
 	store.postPost = async function (url, { title, body, selectedAuthorId }) {
 		try {
 			const response = await this.http.post(`/${url}`, {
-				title: title,
+				title: title
+					.toLowerCase()
+					.split(' ')
+					.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+					.join(' '),
 				body: body,
 				authorId: selectedAuthorId,
 				created_at: new Date()
 					.toLocaleDateString('ko-KR')
 					.replaceAll('. ', '-')
-					.slice(0, 10),
+					.replaceAll('.', ''),
 				updated_at: new Date()
 					.toLocaleDateString('ko-KR')
 					.replaceAll('. ', '-')
-					.slice(0, 10),
+					.replaceAll('.', ''),
+			});
+			return response.data;
+		} catch (error) {
+			throw new Error(`There was a problem posting to ${url}`);
+		}
+	};
+
+	store.putPost = async function (url, { title, body, selectedAuthorId }, id) {
+		try {
+			const response = await this.http.patch(`/${url}/${id}`, {
+				title: title
+					.toLowerCase()
+					.split(' ')
+					.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+					.join(' '),
+				body: body,
+				authorId: selectedAuthorId,
+				updated_at: new Date()
+					.toLocaleDateString('ko-KR')
+					.replaceAll('. ', '-')
+					.replaceAll('.', ''),
 			});
 			return response.data;
 		} catch (error) {
@@ -67,7 +92,7 @@ const APIPlugin = (store) => {
 				updated_at: new Date()
 					.toLocaleDateString('ko-KR')
 					.replaceAll('. ', '-')
-					.slice(0, 10),
+					.replaceAll('.', ''),
 			});
 			return response.data;
 		} catch (error) {
