@@ -59,7 +59,7 @@ const actions = {
 
 	async delete_author({ dispatch, commit }) {
 		try {
-			const author = await this.deleteData('authors', state.selectedAuthorId);
+			const author = await this.DeleteData('authors', state.selectedAuthorId);
 			await dispatch('fetch_authors');
 			commit('pushNotification', {
 				type: 'success',

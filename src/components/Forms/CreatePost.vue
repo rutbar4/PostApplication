@@ -10,6 +10,7 @@
 				<input
 					name="PostTitle"
 					class="input is-link is-hovered"
+					:class="{ input: true, 'is-danger': errors.has('PostTitle') }"
 					placeholder="Title"
 					type="text"
 					v-model="title"
@@ -24,6 +25,7 @@
 				<textarea
 					name="PostBody"
 					class="textarea is-link is-hovered"
+					:class="{ input: true, 'is-danger': errors.has('PostBody') }"
 					rows="3"
 					v-model="body"
 					placeholder="Write yor body here..."
@@ -36,8 +38,10 @@
 				>
 				<label class="label has-text-weight-normal mt-3">Select author: </label>
 				<div>
-					<div class="select is-link">
+					<div class="select">
 						<select
+							class="is-link"
+							:class="{ input: true, 'is-danger': errors.has('authorSelect') }"
 							name="authorSelect"
 							v-model="selectedAuthorId"
 							v-validate="'required'"

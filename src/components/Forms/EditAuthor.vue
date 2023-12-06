@@ -8,11 +8,11 @@
 					<p class="control has-icon has-icon-right">
 						<input
 							name="name"
-							v-model="name"
-							v-validate="'required|regex:[a-zA-Z]|min:2|max:50'"
 							:class="{ input: true, 'is-danger': errors.has('name') }"
 							type="text"
 							placeholder="Write author's name to change"
+							v-model="name"
+							v-validate="'required|regex:[a-zA-Z]|min:2|max:50'"
 						/>
 						<i
 							v-show="errors.has('name')"
