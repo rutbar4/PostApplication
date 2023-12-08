@@ -1,55 +1,49 @@
 <template>
 	<div id="edit-post">
-		<div style="padding-left: 10%; padding-right: 10%">
-			<label class="label">Edit post</label>
-			<form @submit.prevent="validateBeforeSubmit">
-				<label class="label has-text-weight-normal mt-3">Title: </label>
-				<input
-					name="PostTitle"
-					class="input is-link is-hovered"
-					:class="{ input: true, 'is-danger': errors.has('PostTitle') }"
-					placeholder="Title"
-					type="text"
-					v-model="title"
-					@input="onFormInput"
-					v-validate="'required|min:2|max:50'"
-				/>
-				<span
-					v-show="errors.has('PostTitle')"
-					class="help is-danger"
-					>{{ errors.first('PostTitle') }}</span
-				>
-				<label class="label has-text-weight-normal mt-3">Body: </label>
-				<textarea
-					name="PostBody"
-					class="textarea is-link is-hovered"
-					:class="{ input: true, 'is-danger': errors.has('PostBody') }"
-					rows="3"
-					v-model="body"
-					@input="onFormInput"
-					placeholder="Write yor body here..."
-					v-validate="'required|regex:[a-zA-Z]|min:2|max:250'"
-				></textarea>
-				<span
-					v-show="errors.has('PostBody')"
-					class="help is-danger"
-					>{{ errors.first('PostBody') }}</span
-				>
-
-				<div style="padding-top: 10px">
-					<button
-						class="button is-primary is-rounded"
-						type="submit"
-						:disabled="
-							!isEdited ||
-							(notChangedTitle === title && notChangedBody === body)
-						"
-					>
-						Sumbit
-					</button>
-				</div>
-			</form>
-		</div>
+		<label class="label">Edit post</label>
+		<form @submit.prevent="validateBeforeSubmit">
+			<label class="label has-text-weight-normal mt-3">Title: </label>
+			<input
+				name="PostTitle"
+				class="input is-link is-hovered"
+				:class="{ input: true, 'is-danger': errors.has('PostTitle') }"
+				placeholder="Title"
+				type="text"
+				v-model="title"
+				@input="onFormInput"
+				v-validate="'required|min:2|max:50'"
+			/>
+			<span
+				v-show="errors.has('PostTitle')"
+				class="help is-danger"
+				>{{ errors.first('PostTitle') }}</span
+			>
+			<label class="label has-text-weight-normal mt-3">Body: </label>
+			<textarea
+				name="PostBody"
+				class="textarea is-link is-hovered"
+				:class="{ input: true, 'is-danger': errors.has('PostBody') }"
+				rows="3"
+				v-model="body"
+				@input="onFormInput"
+				placeholder="Write yor body here..."
+				v-validate="'required|regex:[a-zA-Z]|min:2|max:250'"
+			></textarea>
+			<span
+				v-show="errors.has('PostBody')"
+				class="help is-danger"
+				>{{ errors.first('PostBody') }}</span
+			>
+			<button
+				class="button is-primary is-rounded mt-3"
+				type="submit"
+				:disabled="
+					!isEdited || (notChangedTitle === title && notChangedBody === body)
+				"
+			>
+				Sumbit
+			</button>
+		</form>
 	</div>
 </template>
 
@@ -109,3 +103,9 @@
 		},
 	};
 </script>
+<style>
+	#edit-post {
+		padding-left: 10%;
+		padding-right: 10%;
+	}
+</style>

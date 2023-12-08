@@ -1,11 +1,7 @@
 <template>
 	<div id="create-post">
-		<div
-			class="field"
-			style="padding-left: 10%; padding-right: 10%"
-		>
+		<div class="field">
 			<label class="label">Create new post</label>
-			<div>{{ getSelectedPostId }}</div>
 			<form @submit.prevent="validateBeforeSubmit">
 				<label class="label has-text-weight-normal mt-3">Title: </label>
 				<input
@@ -69,14 +65,12 @@
 						>{{ errors.first('authorSelect') }}</span
 					>
 				</div>
-				<div style="padding-top: 10px">
 					<button
-						class="button is-primary is-rounded"
+						class="button is-primary is-rounded mt-4"
 						type="submit"
 					>
 						Sumbit
 					</button>
-				</div>
 			</form>
 		</div>
 	</div>
@@ -122,3 +116,10 @@
 		},
 	};
 </script>
+
+<style scoped>
+	#create-post {
+		padding-left: 5%;
+		padding-right: 5%;
+	}
+</style>

@@ -4,8 +4,7 @@
 		is-overlay
 	>
 		<div
-			style="padding-right: 20%; padding-left: 20%"
-			v-bind:class="getIsOpen ? 'modal is-active' : 'modal'"
+			v-bind:class="getIsOpen ? 'modal is-active pr-6 pl-6' : 'modal pr-6 pl-6'"
 		>
 			<div class="modal-background"></div>
 			<div class="modal-card">
@@ -54,4 +53,3 @@
 	import EditAuthor from './Forms/EditAuthor.vue';
 	import EditPost from './Forms/EditPost.vue';
 </script>
-<style></style>

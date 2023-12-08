@@ -4,15 +4,7 @@
 		is-overlay
 	>
 		<div>
-			<span
-				style="
-					position: fixed;
-					overflow: auto;
-					max-height: 80%;
-					top: 110px;
-					right: 5%;
-					overflow-anchor: auto;
-				"
+			<span class="notification-span"
 				><Notification
 					v-for="(notification, index) in getNotifications"
 					:key="index"
@@ -61,4 +53,13 @@
 	};
 </script>
 
-<style></style>
+<style scoped>
+	.notification-span {
+		position: fixed;
+		overflow: auto;
+		max-height: 80%;
+		top: 110px;
+		right: 5%;
+		overflow-anchor: auto;
+	}
+</style>

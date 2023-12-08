@@ -1,11 +1,9 @@
 <template>
 	<div id="post">
 		<div class="card mb-6">
-		<div class="card mb-6">
 			<header class="card-header">
 				<router-link
 					exact
-					style="padding: 0"
 					v-if="!isSinglePostRoute"
 					:to="{ path: '/posts/' + post.id }"
 				>
@@ -47,18 +45,6 @@
 			<footer class="card-footer">
 				<a
 					href="#"
-					class="card-footer-item pr-6 pl-6"
-				>
-					<button
-						class="button is-success is-outlined is-fullwidth mr-6 ml-6 is-small is-rounded"
-						v-on:click="
-							SET_SELECTED_POST({
-								title: post.title,
-								body: post.body,
-								id: post.id,
-							});
-							openModal('EditPost');
-						"
 					class="card-footer-item pr-6 pl-6"
 				>
 					<button

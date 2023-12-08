@@ -1,15 +1,6 @@
 <template>
-	<div
-		id="authorList"
-		style="
-			align-content: center;
-			padding-top: 10px;
-			padding-left: 10%;
-			padding-right: 10%;
-		"
-	>
+	<div id="author-list">
 		<Author
-			style="align-items: center"
 			v-for="author in getAuthors"
 			:key="author.id"
 			:author="author"
@@ -35,8 +26,11 @@
 	};
 </script>
 
-<style>
-	.h1 {
-		color: blue;
+<style scoped>
+	#author-list {
+		align-content: center;
+		padding-top: 10px;
+		padding-left: 10%;
+		padding-right: 10%;
 	}
 </style>
