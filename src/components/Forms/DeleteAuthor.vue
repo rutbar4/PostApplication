@@ -5,18 +5,20 @@
 			style="padding-left: 20%; padding-right: 20%"
 		>
 			<label class="label"
-				>Do you realll want to delete author: {{ getSelectedName() }}?</label
+				>Do you really want to delete author: {{ getSelectedName() }}?</label
 			>
 			<div style="padding-top: 10px">
 				<button
+					class="button is-danger is-small is-rounded"
 					v-on:click="
 						delete_author();
 						closeModal();
 					"
 					style="margin-right: 3px"
 				>
-					Yes</button
+					Yes, delete</button
 				><button
+					class="button is-success is-small is-rounded"
 					v-on:click="closeModal()"
 					style="margin-right: 3px"
 				>
@@ -36,7 +38,7 @@
 		},
 		methods: {
 			...mapActions(['delete_author']),
-			...mapGetters(['getSelectedName', 'getSelectedId']),
+			...mapGetters(['getSelectedName']),
 			...mapMutations(['closeModal']),
 		},
 	};

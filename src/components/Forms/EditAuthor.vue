@@ -28,7 +28,7 @@
 				<div class="column is-12">
 					<p class="control">
 						<button
-							class="button is-primary"
+							class="button is-primary is-rounded"
 							type="submit"
 						>
 							Submit

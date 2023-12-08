@@ -15,9 +15,8 @@ export default [
 			{
 				path: '/posts',
 				component: PostsHome,
-				name: 'Posts',
 				children: [
-					{ path: '', component: Posts },
+					{ path: '', component: Posts, name: 'Posts' },
 					{ path: ':id', component: SinglePost, name: 'SinglePost' },
 				],
 			},

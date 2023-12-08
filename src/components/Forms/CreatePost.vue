@@ -5,6 +5,7 @@
 			style="padding-left: 10%; padding-right: 10%"
 		>
 			<label class="label">Create new post</label>
+			<div>{{ getSelectedPostId }}</div>
 			<form @submit.prevent="validateBeforeSubmit">
 				<label class="label has-text-weight-normal mt-3">Title: </label>
 				<input
@@ -70,7 +71,7 @@
 				</div>
 				<div style="padding-top: 10px">
 					<button
-						class="button is-primary"
+						class="button is-primary is-rounded"
 						type="submit"
 					>
 						Sumbit
@@ -114,7 +115,7 @@
 			},
 		},
 		computed: {
-			...mapGetters(['getAuthors']),
+			...mapGetters(['getAuthors', 'getSelectedPostId']),
 		},
 		created() {
 			this.fetch_authors();
