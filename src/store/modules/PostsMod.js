@@ -1,3 +1,5 @@
+import { formatAuthorName, getCurrentDate } from '../../utils/utils';
+
 const state = {
 	posts: [],
 	post: {},
@@ -6,16 +8,18 @@ const state = {
 	selectedPostBody: '',
 	selectedPostId: '',
 	selectedAuthorId: '',
-	isDeletedFromSignlePost: false,
+	isDeletedFromSinglePost: false,
 };
 
 const actions = {
 	async post_post({ dispatch, commit }, { title, body, selectedAuthorId }) {
 		try {
-			const post = await this.postPost('posts', {
-				title,
-				body,
-				selectedAuthorId,
+			const post = await this.postData('posts', {
+				title: formatAuthorName(title),
+				body: body,
+				authorId: selectedAuthorId,
+				created_at: getCurrentDate(),
+				updated_at: getCurrentDate(),
 			});
 			await dispatch('fetch_posts');
 			commit('pushNotification', {
@@ -33,14 +37,11 @@ const actions = {
 
 	async edit_post({ commit }, { title, body }) {
 		try {
-			const post = await this.putPost(
-				'posts',
-				{
-					title,
-					body,
-				},
-				state.selectedPostId,
-			);
+			const post = await this.putData(`posts/${state.selectedPostId}`, {
+				title: formatAuthorName(title),
+				body: body,
+				updated_at: getCurrentDate(),
+			});
 			if (Object.keys(state.post).length === 0) {
 				const postIndex = state.posts.findIndex((item) => item.id === post.id);
 				const updatedPosts = [...state.posts];
@@ -80,7 +81,7 @@ const actions = {
 
 	async fetch_post_by_id({ commit }, id) {
 		try {
-			const post = await this.getById(`posts`, id);
+			const post = await this.getData(`posts/${id}?_expand=author`);
 			commit('SET_POST', post);
 			commit('pushNotification', {
 				type: 'success',
@@ -96,7 +97,7 @@ const actions = {
 
 	async delete_post({ dispatch, commit }) {
 		try {
-			const post = await this.deleteData('posts', state.selectedPostId);
+			const post = await this.deleteData(`posts/${state.selectedPostId}`);
 
 			if (!state.isDeletedFromSinglePost) {
 				await dispatch('fetch_posts');
@@ -137,19 +138,17 @@ const mutations = {
 		state.post.title = title;
 		state.post.body = body;
 	},
+
 	SET_SELECTED_POST(state, { title, body, id }) {
 		state.selectedPostTitle = title;
 		state.selectedPostBody = body;
 		state.selectedPostId = id;
 	},
-	SET_POST_TITLE_BODY(state, { title, body, id }) {
-		const postIndex = state.posts.findIndex((item) => item.id === post.id);
-		const updatedPosts = [...state.posts];
-		updatedPosts[postIndex] = post;
-	},
+
 	SET_IS_DELETED_FROM_SINGLEPOST(state, isDeleted) {
 		state.isDeletedFromSinglePost = isDeleted;
 	},
+
 	SET_IS_IN_SINGLEPOST(state, isInSinglePost) {
 		state.isInSinglePost = isInSinglePost;
 	},

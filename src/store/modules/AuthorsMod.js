@@ -1,3 +1,5 @@
+import {formatAuthorName, getCurrentDate } from '../../utils/utils'
+
 const state = {
 	authors: [],
 	selectedAuthorName: '',
@@ -23,7 +25,11 @@ const actions = {
 
 	async post_author({ dispatch, commit }, name) {
 		try {
-			const author = await this.postData('authors', name);
+			const author = await this.postData('authors', {
+				name: formatAuthorName(name),
+				created_at: getCurrentDate(),
+				updated_at: getCurrentDate(),
+			});
 			await dispatch('fetch_authors');
 			commit('pushNotification', {
 				type: 'success',
@@ -39,11 +45,10 @@ const actions = {
 
 	async edit_author({ dispatch, commit }, newName) {
 		try {
-			const author = await this.putData(
-				'authors',
-				newName,
-				state.selectedAuthorId,
-			);
+			const author = await this.putData(`authors/${state.selectedAuthorId}`, {
+				name: formatAuthorName(newName),
+				updated_at: getCurrentDate(),
+			});
 			await dispatch('fetch_authors');
 			commit('pushNotification', {
 				type: 'success',
@@ -59,7 +64,7 @@ const actions = {
 
 	async delete_author({ dispatch, commit }) {
 		try {
-			const author = await this.DeleteData('authors', state.selectedAuthorId);
+			const author = await this.deleteData(`authors/${state.selectedAuthorId}`);
 			await dispatch('fetch_authors');
 			commit('pushNotification', {
 				type: 'success',
@@ -74,6 +79,7 @@ const actions = {
 	},
 };
 
+
 const getters = {
 	getAuthors: (state) => state.authors,
 	getSelectedName: (state) => state.selectedAuthorName,
@@ -84,6 +90,7 @@ const mutations = {
 	SET_AUTHORS(state, authors) {
 		state.authors = authors;
 	},
+	
 	SET_SELECTED_NAME_AND_ID(state, { name, id }) {
 		state.selectedAuthorName = name;
 		state.selectedAuthorId = id;
