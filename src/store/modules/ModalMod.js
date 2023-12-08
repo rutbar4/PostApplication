@@ -14,6 +14,7 @@ const mutations = {
 		state.isOpen = true;
 		state.component = component;
 	},
+	
 	closeModal: (state) => {
 		state.isOpen = false;
 		state.component = '';
