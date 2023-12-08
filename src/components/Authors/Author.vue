@@ -50,11 +50,22 @@
 						</div>
 					</div>
 					<div class="content">
-						<time
-							datetime="2016-1-1"
+						<div
 							class="subtitle is-6"
-							>Date created: {{ author.created_at }}</time
+							v-if="author.created_at >= author.updated_at"
 						>
+							<time datetime="2016-1-1"
+								>Created at: {{ author.created_at }}</time
+							>
+						</div>
+						<div
+							class="subtitle is-6"
+							v-else
+						>
+							<time datetime="2016-1-1"
+								>Updated at: {{ author.updated_at }}</time
+							>
+						</div>
 					</div>
 				</div>
 			</div>

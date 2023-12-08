@@ -68,7 +68,7 @@ const actions = {
 		} catch {
 			commit('pushNotification', {
 				type: 'error',
-				msg: 'Failed to deleted author',
+				msg: 'Failed to delete author',
 			});
 		}
 	},

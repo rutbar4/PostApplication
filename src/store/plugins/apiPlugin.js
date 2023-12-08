@@ -31,7 +31,7 @@ const APIPlugin = (store) => {
 			});
 			return response.data;
 		} catch (error) {
-			throw new Error(`There was a problem posting to ${url}`);
+			throw new Error(`There was a problem posting name: ${name} to ${url}`);
 		}
 	};
 
@@ -56,7 +56,9 @@ const APIPlugin = (store) => {
 			});
 			return response.data;
 		} catch (error) {
-			throw new Error(`There was a problem posting to ${url}`);
+			throw new Error(
+				`There was a problem posting post title: ${title} to ${url}`,
+			);
 		}
 	};
 
@@ -77,7 +79,9 @@ const APIPlugin = (store) => {
 			});
 			return response.data;
 		} catch (error) {
-			throw new Error(`There was a problem posting to ${url}`);
+			throw new Error(
+				`There was a problem updating post title: ${title} to ${url}`,
+			);
 		}
 	};
 
@@ -96,7 +100,9 @@ const APIPlugin = (store) => {
 			});
 			return response.data;
 		} catch (error) {
-			throw new Error(`There was a problem while updating in ${url}`);
+			throw new Error(
+				`There was a problem while updating name: ${name} in ${url}`,
+			);
 		}
 	};
 
