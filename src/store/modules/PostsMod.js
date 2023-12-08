@@ -6,8 +6,7 @@ const state = {
 	selectedPostBody: '',
 	selectedPostId: '',
 	selectedAuthorId: '',
-	isDeletedFromSinglePost: false,
-	isInSinglePost: false,
+	isDeletedFromSignlePost: false,
 };
 
 const actions = {
@@ -21,6 +20,7 @@ const actions = {
 			await dispatch('fetch_posts');
 			commit('pushNotification', {
 				type: 'success',
+				msg: `Post (titled: "${title}") posted successfully`,
 				msg: `Post (titled: "${title}") posted successfully`,
 			});
 		} catch {

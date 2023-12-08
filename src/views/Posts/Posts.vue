@@ -3,8 +3,7 @@
 		<router-view></router-view>
 		<h1>Full list of authors</h1>
 		<button
-			class="button is-primary is-rounded"
-			style="margin-bottom: 15px; margin-top: 10px"
+			class="button is-primary is-rounded mt-3 mb-3"
 			v-on:click="openModal('CreatePost')"
 		>
 			Create post

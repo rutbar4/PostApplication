@@ -1,8 +1,6 @@
 <template>
-	<div id="singlePost">
-		<div style="margin-top: 15px">
-			<Post :post="getPost"></Post>
-		</div>
+	<div id="single-post">
+		<Post :post="getPost"></Post>
 	</div>
 </template>
 
@@ -37,4 +35,8 @@
 	};
 </script>
 
-<style></style>
+<style scoped>
+	#singlePost {
+		margin-top: 15px;
+	}
+</style>

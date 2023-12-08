@@ -1,33 +1,25 @@
 <template>
 	<div id="delete-post">
-		Delete post
-		<div
-			class="field"
-			style="padding-left: 20%; padding-right: 20%"
+		<label class="label"
+			>Do you really want to delete post title:
+			{{ getSelectedPostTitle() }}?</label
 		>
-			<label class="label"
-				>Do you really want to delete post title:
-				{{ getSelectedPostTitle() }}?</label
+		<div class="delete-post-buttons">
+			<button
+				class="button is-danger is-small is-rounded mr-2"
+				v-on:click="
+					delete_post();
+					navigateToPosts();
+					closeModal();
+				"
 			>
-			<div style="padding-top: 10px">
-				<button
-					class="button is-danger is-small is-rounded"
-					v-on:click="
-						delete_post();
-						navigateToPosts();
-						closeModal();
-					"
-					style="margin-right: 3px"
-				>
-					Yes, delete</button
-				><button
-					class="button is-success is-small is-rounded"
-					v-on:click="closeModal()"
-					style="margin-right: 3px"
-				>
-					Cancel
-				</button>
-			</div>
+				Yes, delete</button
+			><button
+				class="button is-success is-small is-rounded mr-2"
+				v-on:click="closeModal()"
+			>
+				Cancel
+			</button>
 		</div>
 	</div>
 </template>
@@ -38,18 +30,10 @@
 		name: 'DeletePost',
 		methods: {
 			...mapActions(['delete_post']),
-			...mapGetters(['getSelectedPostTitle', 'getPost', 'getIsInSinglePost']),
-			...mapMutations([
-				'closeModal',
-				'SET_POST',
-				'SET_IS_DELETED_FROM_SINGLEPOST',
-			]),
+			...mapGetters(['getSelectedPostTitle', 'SET_IS_DELETED_FROM_SINGLEPOST']),
+			...mapMutations(['closeModal', 'SET_POST']),
 			navigateToPosts() {
-				console.log('post::::');
-				console.log(this.getIsInSinglePost());
-				if (this.getIsInSinglePost()) {
-					this.$router.push('/posts');
-				}
+				this.$router.push('/posts');
 			},
 		},
 		beforeDestroy() {
@@ -57,3 +41,8 @@
 		},
 	};
 </script>
+<style scoped>
+	.delete-post-buttons {
+		padding-top: 10px;
+	}
+</style>

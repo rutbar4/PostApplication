@@ -1,42 +1,36 @@
 <template>
 	<div id="edit-author">
-		<div style="padding-left: 5%; padding-right: 5%">
-			<label class="label">Edit Name</label>
-			<form @submit.prevent="validateBeforeSubmit">
-				<div class="column is-12">
-					<label class="label">Name:</label>
-					<p class="control has-icon has-icon-right">
-						<input
-							name="name"
-							:class="{ input: true, 'is-danger': errors.has('name') }"
-							type="text"
-							placeholder="Write author's name to change"
-							v-model="name"
-							v-validate="'required|regex:[a-zA-Z]|min:2|max:50'"
-						/>
-						<i
-							v-show="errors.has('name')"
-							class="fa fa-warning"
-						></i>
-						<span
-							v-show="errors.has('name')"
-							class="help is-danger"
-							>{{ errors.first('name') }}</span
-						>
-					</p>
-				</div>
-				<div class="column is-12">
-					<p class="control">
-						<button
-							class="button is-primary is-rounded"
-							type="submit"
-						>
-							Submit
-						</button>
-					</p>
-				</div>
-			</form>
-		</div>
+		<label class="label">Edit Name</label>
+		<form @submit.prevent="validateBeforeSubmit">
+			<label class="label">Name:</label>
+			<p class="control has-icon has-icon-right">
+				<input
+					name="name"
+					:class="{ input: true, 'is-danger': errors.has('name') }"
+					type="text"
+					placeholder="Write author's name to change"
+					v-model="name"
+					v-validate="'required|regex:[a-zA-Z]|min:2|max:50'"
+				/>
+				<i
+					v-show="errors.has('name')"
+					class="fa fa-warning"
+				></i>
+				<span
+					v-show="errors.has('name')"
+					class="help is-danger"
+					>{{ errors.first('name') }}</span
+				>
+			</p>
+			<p class="control">
+				<button
+					class="button is-primary is-rounded mt-3"
+					type="submit"
+				>
+					Submit
+				</button>
+			</p>
+		</form>
 	</div>
 </template>
 
@@ -74,8 +68,8 @@
 	};
 </script>
 <style scoped>
-	.block {
-		display: flex;
-		align-items: center;
+	#edit-author {
+		padding-left: 5%;
+		padding-right: 5%;
 	}
 </style>
