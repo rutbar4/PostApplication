@@ -1,6 +1,6 @@
 <template>
 	<div id="home">
-		<label>Welcome!</label>
+		<label class="label mb-2">Welcome!</label>
 		<router-view></router-view>
 	</div>
 </template>

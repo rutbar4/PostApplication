@@ -9,6 +9,9 @@ const state = {
 	selectedPostId: '',
 	selectedAuthorId: '',
 	isDeletedFromSinglePost: false,
+	currentPage: 1,
+	postsPerPage: 4,
+	totalPosts: 0,
 };
 
 const actions = {
@@ -21,10 +24,11 @@ const actions = {
 				created_at: getCurrentDate(),
 				updated_at: getCurrentDate(),
 			});
+
 			await dispatch('fetch_posts');
+
 			commit('pushNotification', {
 				type: 'success',
-				msg: `Post (titled: "${title}") posted successfully`,
 				msg: `Post (titled: "${title}") posted successfully`,
 			});
 		} catch {
@@ -42,10 +46,13 @@ const actions = {
 				body: body,
 				updated_at: getCurrentDate(),
 			});
+
 			if (Object.keys(state.post).length === 0) {
+
 				const postIndex = state.posts.findIndex((item) => item.id === post.id);
 				const updatedPosts = [...state.posts];
 				updatedPosts[postIndex] = post;
+				
 				commit('SET_POSTS', updatedPosts);
 			} else {
 				commit('SET_POST_TITLE_AND_BODY', { title, body });
@@ -65,8 +72,13 @@ const actions = {
 
 	async fetch_posts({ commit }) {
 		try {
-			const posts = await this.getData('posts');
-			commit('SET_POSTS', posts);
+			const response = await this.getData(
+				`posts?_page=${state.currentPage}&&_limit=${state.postsPerPage}`,
+			);
+
+			commit('SET_POSTS', response.data);
+			commit('SET_POSTS_COUNT', response.headers['x-total-count']);
+
 			commit('pushNotification', {
 				type: 'success',
 				msg: 'Posts fetched successfully',
@@ -82,10 +94,12 @@ const actions = {
 	async fetch_post_by_id({ commit }, id) {
 		try {
 			const post = await this.getData(`posts/${id}?_expand=author`);
-			commit('SET_POST', post);
+			console.log(post.data);
+			commit('SET_POST', post.data);
+
 			commit('pushNotification', {
 				type: 'success',
-				msg: `Post (titled: "${post.title}") fetched successfully`,
+				msg: `Post (titled: "${post.data.title}") fetched successfully`,
 			});
 		} catch {
 			commit('pushNotification', {
@@ -99,9 +113,14 @@ const actions = {
 		try {
 			const post = await this.deleteData(`posts/${state.selectedPostId}`);
 
+			if (state.posts.length === 1) {
+				commit('SET_CURRENT_PAGE', state.currentPage - 1);
+			}
+
 			if (!state.isDeletedFromSinglePost) {
 				await dispatch('fetch_posts');
 			}
+
 			commit('pushNotification', {
 				type: 'success',
 				msg: `Post (titled: "${state.selectedPostTitle}") deleted successfully`,
@@ -123,11 +142,22 @@ const getters = {
 	getSelectedPostId: (state) => state.selectedPostId,
 	getIsFromSinglePost: (state) => state.isDeletedFromSinglePost,
 	getIsInSinglePost: (state) => state.isInSinglePost,
+	getCurrentPage: (state) => state.currentPage,
+	getTotalPosts: (state) => state.totalPosts,
+	getPostsPerPage: (state) => state.postsPerPage,
 };
 
 const mutations = {
 	SET_POSTS(state, posts) {
 		state.posts = posts;
+	},
+
+	SET_POSTS_COUNT(state, totalPosts) {
+		state.totalPosts = totalPosts;
+	},
+
+	SET_CURRENT_PAGE(state, currentPage) {
+		state.currentPage = currentPage;
 	},
 
 	SET_POST(state, post) {

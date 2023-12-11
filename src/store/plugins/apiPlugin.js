@@ -6,7 +6,7 @@ const APIPlugin = (store) => {
 	store.getData = async function (url) {
 		try {
 			const response = await this.http.get(`/${url}`);
-			return response.data;
+			return response;
 		} catch (error) {
 			throw new Error(`There was a problem fetching ${url} from the server`);
 		}
@@ -22,14 +22,11 @@ const APIPlugin = (store) => {
 	};
 
 	store.putData = async function (url, data) {
-		console.log(data);
 		try {
 			const response = await this.http.patch(`/${url}`, data);
 			return response.data;
 		} catch (error) {
-			throw new Error(
-				`There was a problem while updating in ${url}`,
-			);
+			throw new Error(`There was a problem while updating in ${url}`);
 		}
 	};
 
@@ -38,9 +35,7 @@ const APIPlugin = (store) => {
 			const response = await this.http.delete(`/${url}`);
 			return response.data;
 		} catch (error) {
-			throw new Error(
-				`There was a problem deleting an item from ${url}`,
-			);
+			throw new Error(`There was a problem deleting an item from ${url}`);
 		}
 	};
 };
