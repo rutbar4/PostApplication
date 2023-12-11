@@ -1,26 +1,30 @@
 <template>
-	<div id="authors-view">
+	<div id="posts-view">
+		<router-view></router-view>
 		<h1>Full list of authors</h1>
 		<button
 			class="button is-primary is-rounded mt-3 mb-3"
-			v-on:click="openModal('CreateAuthor')"
+			v-on:click="openModal('CreatePost')"
 		>
-			Create author
+			Create post
 		</button>
-		<AuthorsList />
+
+		<PostsList />
+		<div></div>
 	</div>
 </template>
 
 <script>
 	import { mapMutations } from 'vuex';
-	import AuthorsList from '../components/Authors/AuthorsList.vue';
+	import PostsList from '../../components/Posts/PostsList.vue';
 	export default {
-		name: 'AuthorsView',
+		name: 'PostsView',
 		components: {
-			AuthorsList,
+			PostsList,
 		},
 		methods: {
 			...mapMutations(['openModal']),
+			
 		},
 	};
 </script>
