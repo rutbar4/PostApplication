@@ -5,15 +5,16 @@ const state = {
 	selectedAuthorName: '',
 	selectedAuthorId: '',
 	currentAuthorsPage: 1,
-	authorsPerPage: 1,
+	authorsPerPage: 6,
 	totalAuthors: 0,
+	searchAuthorQuery: '',
 };
 
 const actions = {
 	async fetch_authors({ commit }) {
 		try {
 			const response = await this.getData(
-				`authors?_page=${state.currentAuthorsPage}&&_limit=${state.authorsPerPage}`,
+				`authors?_page=${state.currentAuthorsPage}&&_limit=${state.authorsPerPage}&&name_like=${state.searchAuthorQuery}`,
 			);
 
 			commit('SET_AUTHORS', response.data);
@@ -121,6 +122,10 @@ const mutations = {
 	SET_SELECTED_NAME_AND_ID(state, { name, id }) {
 		state.selectedAuthorName = name;
 		state.selectedAuthorId = id;
+	},
+
+	SET_SEARCH_AUTHOR_TEXT(state, searchAuthorQuery) {
+		state.searchAuthorQuery = searchAuthorQuery;
 	},
 };
 

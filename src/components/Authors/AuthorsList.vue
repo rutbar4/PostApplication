@@ -1,5 +1,6 @@
 <template>
 	<div id="author-list">
+		<Search @search="handleSearch" />
 		<Author
 			v-for="author in getAuthors"
 			:key="author.id"
@@ -9,7 +10,7 @@
 			:currentPage="currentPage"
 			:totalPages="totalPages"
 			@changePage="fetchAuthors"
-			v-if="getTotalAuthors > 1"
+			v-if="getTotalAuthors > 0"
 		></pagination>
 		<div
 			class="label"
@@ -24,9 +25,10 @@
 	import { mapGetters, mapActions } from 'vuex';
 	import Author from './Author.vue';
 	import Pagination from '../Pagination.vue';
+	import Search from '../../components/Search.vue';
 	export default {
 		name: 'AuthorsList',
-		components: { Author, Pagination },
+		components: { Author, Pagination, Search },
 		computed: {
 			...mapGetters([
 				'getAuthors',
@@ -43,8 +45,15 @@
 		},
 		methods: {
 			...mapActions(['fetch_authors']),
+			
 			fetchAuthors(page) {
 				this.$store.commit('SET_CURRENT_AUTHORS_PAGE', page);
+				this.fetch_authors();
+			},
+
+			handleSearch(query) {
+				this.$store.commit('SET_SEARCH_AUTHOR_TEXT', query);
+				this.$store.commit('SET_CURRENT_AUTHORS_PAGE', 1);
 				this.fetch_authors();
 			},
 		},

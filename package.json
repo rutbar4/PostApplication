@@ -23,6 +23,7 @@
     "vee-validate": "^2.2.15",
     "vite": "^4.0.4",
     "vue": "^2.7.15",
+    "vue-debounce": "^4.0.1",
     "vue-router": "^3.6.5",
     "vue-template-compiler": "^2.7.14",
     "vue-toasted": "^1.1.28",

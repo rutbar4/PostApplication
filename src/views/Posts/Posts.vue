@@ -8,6 +8,7 @@
 		>
 			Create post
 		</button>
+
 		<PostsList />
 		<div></div>
 	</div>
@@ -23,6 +24,7 @@
 		},
 		methods: {
 			...mapMutations(['openModal']),
+			
 		},
 	};
 </script>

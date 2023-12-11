@@ -12,6 +12,7 @@ const state = {
 	currentPage: 1,
 	postsPerPage: 4,
 	totalPosts: 0,
+	searchQuery: '',
 };
 
 const actions = {
@@ -48,11 +49,10 @@ const actions = {
 			});
 
 			if (Object.keys(state.post).length === 0) {
-
 				const postIndex = state.posts.findIndex((item) => item.id === post.id);
 				const updatedPosts = [...state.posts];
 				updatedPosts[postIndex] = post;
-				
+
 				commit('SET_POSTS', updatedPosts);
 			} else {
 				commit('SET_POST_TITLE_AND_BODY', { title, body });
@@ -73,7 +73,7 @@ const actions = {
 	async fetch_posts({ commit }) {
 		try {
 			const response = await this.getData(
-				`posts?_page=${state.currentPage}&&_limit=${state.postsPerPage}`,
+				`posts?_page=${state.currentPage}&&_limit=${state.postsPerPage}&&title_like=${state.searchQuery}`,
 			);
 
 			commit('SET_POSTS', response.data);
@@ -94,7 +94,6 @@ const actions = {
 	async fetch_post_by_id({ commit }, id) {
 		try {
 			const post = await this.getData(`posts/${id}?_expand=author`);
-			console.log(post.data);
 			commit('SET_POST', post.data);
 
 			commit('pushNotification', {
@@ -132,6 +131,12 @@ const actions = {
 			});
 		}
 	},
+	updateSearch({ commit, state }) {
+		const filteredPosts = state.posts.filter((post) =>
+			post.title.toLowerCase().includes(state.searchQuery.toLowerCase()),
+		);
+		commit('setFilteredPosts', filteredPosts);
+	},
 };
 
 const getters = {
@@ -145,6 +150,7 @@ const getters = {
 	getCurrentPage: (state) => state.currentPage,
 	getTotalPosts: (state) => state.totalPosts,
 	getPostsPerPage: (state) => state.postsPerPage,
+	getFilteredPosts: (state) => state.filteredPosts,
 };
 
 const mutations = {
@@ -181,6 +187,10 @@ const mutations = {
 
 	SET_IS_IN_SINGLEPOST(state, isInSinglePost) {
 		state.isInSinglePost = isInSinglePost;
+	},
+
+	SET_SEARCH_TEXT(state, searchQuery) {
+		state.searchQuery = searchQuery;
 	},
 };
 
