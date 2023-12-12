@@ -6,6 +6,7 @@
 			aria-label="pagination"
 		>
 			<button
+				id="previous_button"
 				class="pagination-previous"
 				v-on:click="changePage(currentPage - 1)"
 				:disabled="currentPage === 1"
@@ -52,6 +53,7 @@
 				</button>
 			</ul>
 			<button
+				id="next_button"
 				class="pagination-next"
 				v-on:click="changePage(currentPage + 1)"
 				:disabled="currentPage === totalPages"
