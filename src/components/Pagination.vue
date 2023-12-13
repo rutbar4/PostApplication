@@ -22,6 +22,7 @@
 					1
 				</button>
 				<li
+					id="left_ellipsis"
 					v-if="showLeftEllipsis"
 					aria-hidden="true"
 				>
@@ -36,8 +37,8 @@
 				>
 					{{ page }}
 				</button>
-
 				<li
+					id="right_ellipsis"
 					v-if="showRightEllipsis"
 					aria-hidden="true"
 				>
