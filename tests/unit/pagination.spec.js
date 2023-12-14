@@ -3,6 +3,7 @@ import { shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import Pagination from '../../src/components/Pagination.vue';
 import { describe, it, expect, beforeEach } from 'vitest';
+import { all } from 'axios';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -36,6 +37,10 @@ const createWrapper = (currentPage, totalPages) => {
 		},
 	});
 };
+
+function findByText(wrap, selector, text) {
+	return wrap.findAll(selector).filter((n) => n.text().match(text));
+}
 
 describe('Pagination component buttons', () => {
 	it('buttons text is Next And Previous', () => {
@@ -91,7 +96,7 @@ describe('Pagination component buttons', () => {
 	});
 });
 
-describe('Pagination component buttons actions', () => {
+describe('Pagination component buttons', () => {
 	it('should call *changePage* action', () => {
 		const wrapper = createWrapper(1, 5);
 		const spy = vi.spyOn(wrapper.vm, 'changePage');
@@ -103,16 +108,162 @@ describe('Pagination component buttons actions', () => {
 		expect(spy).toHaveBeenCalledTimes(2);
 	});
 
-	it('should call *changePage* action two times and be in page 3', async () => {
-		const wrapper = createWrapper(1, 5);
+	it('should call *changePage* action one times and page emitted should be 3 when current=2', () => {
+		const wrapper = createWrapper(2, 6);
 		const next_button = wrapper.find('#next_button');
 
-		await next_button.trigger('click');
-		await next_button.trigger('click');
+		next_button.trigger('click');
 
-		// expect(spy).toHaveBeenCalledTimes(2);
-		// spy.should.have.been.currentPage;
-		expect(wrapper).toBe(3);
+		expect(wrapper.emitted().changePage[0][0]).toBe(3);
+	});
+
+	it('should call *changePage* action one times and page emitted should be 2 when current=1', () => {
+		const wrapper = createWrapper(1, 20);
+		const next_button = wrapper.find('#next_button');
+
+		next_button.trigger('click');
+
+		expect(wrapper.emitted().changePage[0][0]).toBe(2);
+	});
+
+	it('should call *changePage* action one times and page emitted should be 11 when current=10', () => {
+		const wrapper = createWrapper(10, 20);
+		const next_button = wrapper.find('#next_button');
+
+		next_button.trigger('click');
+
+		expect(wrapper.emitted().changePage[0][0]).toBe(11);
+	});
+
+	it('should show all 6 buttons out of 6 pages', () => {
+		const numberOfPages = 6;
+		const wrapper = createWrapper(1, numberOfPages);
+		const buttonIndices = Array.from(
+			{ length: numberOfPages },
+			(_, index) => index + 1,
+		);
+
+		const buttonExistsChecks = buttonIndices.map((index) =>
+			findByText(wrapper, 'button', index).exists(),
+		);
+
+		for (let i = 0; i < numberOfPages; i++) {
+			expect(buttonExistsChecks[i]).toBe(true);
+		}
+	});
+
+	it('should show all 7 buttons out of 7 pages', () => {
+		const numberOfPages = 7;
+		const wrapper = createWrapper(1, numberOfPages);
+		const buttonIndices = Array.from(
+			{ length: numberOfPages },
+			(_, index) => index + 1,
+		);
+
+		const buttonExistsChecks = buttonIndices.map((index) =>
+			findByText(wrapper, 'button', index).exists(),
+		);
+
+		for (let i = 0; i < numberOfPages; i++) {
+			expect(buttonExistsChecks[i]).toBe(true);
+		}
+	});
+
+	it('should not show button 7 out of 8 pages when currentPage=1', () => {
+		const numberOfPages = 8;
+		const wrapper = createWrapper(1, numberOfPages);
+
+		const allButtons = wrapper.findAll('button');
+		const allButtonsText = allButtons.wrappers.map((button) => button.text());
+
+		expect(allButtonsText.includes('7')).toBe(false);
+	});
+
+	it('should not show 2 button out of 8 pages when currentPage=7', () => {
+		const numberOfPages = 8;
+		const wrapper = createWrapper(7, numberOfPages);
+
+		const allButtons = wrapper.findAll('button');
+		const allButtonsText = allButtons.wrappers.map((button) => button.text());
+
+		expect(allButtonsText.includes('2')).toBe(false);
+	});
+
+	it('should not show button 7 out of 8 pages when currentPage=4', () => {
+		const numberOfPages = 8;
+		const wrapper = createWrapper(4, numberOfPages);
+
+		const allButtons = wrapper.findAll('button');
+		const allButtonsText = allButtons.wrappers.map((button) => button.text());
+
+		expect(allButtonsText.includes('7')).toBe(false);
+	});
+
+	it('should not show button 2 out of 8 pages when currentPage=5', () => {
+		const numberOfPages = 8;
+		const wrapper = createWrapper(5, numberOfPages);
+
+		const allButtons = wrapper.findAll('button');
+		const allButtonsText = allButtons.wrappers.map((button) => button.text());
+
+		expect(allButtonsText.includes('2')).toBe(false);
+	});
+
+	it('should not show buttons 7 and 8 out of 9 pages when currentPage=1', () => {
+		const numberOfPages = 9;
+		const wrapper = createWrapper(1, numberOfPages);
+		const notShownPages = [7, 8];
+
+		const allButtons = wrapper.findAll('button');
+		const allButtonsText = allButtons.wrappers.map((button) => button.text());
+
+		for (let i = 0; i < notShownPages.length; i++) {
+			expect(allButtonsText.includes(notShownPages[i].toString())).toBe(false);
+		}
+	});
+
+	it('should not show buttons 2 and 3 out of 9 pages when currentPage=6', () => {
+		const numberOfPages = 9;
+		const wrapper = createWrapper(6, numberOfPages);
+		const notShownPages = [2, 3];
+
+		const allButtons = wrapper.findAll('button');
+		const allButtonsText = allButtons.wrappers.map((button) => button.text());
+
+		for (let i = 0; i < notShownPages.length; i++) {
+			expect(allButtonsText.includes(notShownPages[i].toString())).toBe(false);
+		}
+	});
+
+	it('should not show buttons 2 and 8 out of 9 pages when currentPage=5', () => {
+		const numberOfPages = 9;
+		const wrapper = createWrapper(5, numberOfPages);
+		const notShownPages = [2, 8];
+
+		const allButtons = wrapper.findAll('button');
+		const allButtonsText = allButtons.wrappers.map((button) => button.text());
+
+		for (let i = 0; i < notShownPages.length; i++) {
+			expect(allButtonsText.includes(notShownPages[i].toString())).toBe(false);
+		}
+	});
+
+	it('should be 9 button when PageCount=100', () => {
+		const numberOfPages = 100;
+		const wrapper = createWrapper(1, numberOfPages);
+
+		const numberOfButtons = wrapper.findAll('button').length;
+
+		expect(numberOfButtons).toBe(9);
+	});
+
+	it('should be 3 buttons when PageCount=1', () => {
+		const numberOfPages = 1;
+		const wrapper = createWrapper(1, numberOfPages);
+
+		const numberOfButtons = wrapper.findAll('button').length;
+
+		expect(numberOfButtons).toBe(3);
 	});
 });
 
